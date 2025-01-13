@@ -1,0 +1,5 @@
+spec:
+  containers:
+  - name: jnlp
+  nodeSelector:
+    kubernetes.io/hostname: __VALUE__

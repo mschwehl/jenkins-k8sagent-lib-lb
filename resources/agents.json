@@ -1,0 +1,11 @@
+{
+  "base": {
+    "agent": "rocky-9-jdk21"
+  },  
+  "jdk21": {
+    "agent": "rocky-9-jdk21"
+  },  
+  "jdk17": {
+    "agent": "rocky-9-jdk17"
+  }
+}
