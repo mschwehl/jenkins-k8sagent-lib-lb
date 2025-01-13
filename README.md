@@ -7,7 +7,7 @@ This setup leverages a inspring shared Jenkins library ([jenkins-k8sagent-lib](h
 - **Load Balancing**: Distribute jobs across multiple clouds.
 - **Cloud Preferences by Project**: Allow projects to prefer specific clouds (e.g., for caching or performance reasons).
 - **Cloud Management**: Enable turning off a cloud for maintenance without reconfiguring builds. Jobs will automatically move to available clouds.
-
+- **Zero Dependencies**: Jenkins Groovy is outdated and there is no yaml-parser besides SnakeYAML. Dont be dependend to a external library
 ## Usage in Jenkins Pipelines
 
 Once the library is set up, you can use the `k8sagent` in your Jenkins pipeline like this:
