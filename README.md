@@ -26,7 +26,7 @@ pipeline {
 
 ### Define a Cloud and Inherit Pod Templates
 
-First, create a common root template that defines default settings. Then, extend this template for your build images (e.g., `rocky-9-jdk21`). Ensure the inheritance strategy is set to `merge`.
+First, create a common root template that defines default settings. Then, extend this template for your build images (e.g., `rocky-9-jdk21`). Ensure the inheritance strategy is set to `merge`. Here you define the default container. Name of the container *must* be `jndi` 
 
 ![Cloud Template Setup](screenshots/01_cloud-config.png)
 *Cloud Template Setup*
