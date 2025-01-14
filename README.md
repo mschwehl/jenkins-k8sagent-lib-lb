@@ -1,6 +1,6 @@
 # Jenkins Kubernetes (K8s) Agent Setup with Load Balancing (jenkins-k8sagent-lib-lb)
 
-This setup leverages a inspring shared Jenkins library ([jenkins-k8sagent-lib](https://github.com/liejuntao001/jenkins-k8sagent-lib)) for load balancing across multiple Kubernetes clusters. It provides a scalable and flexible solution for distributing Jenkins jobs across different clouds.
+This setup leverages a shared Jenkins library ([jenkins-k8sagent-lib](https://github.com/liejuntao001/jenkins-k8sagent-lib)) for load balancing across multiple Kubernetes clusters. It provides a scalable and flexible solution for distributing Jenkins jobs across different clouds.
 
 ## Motivation and Design Goals
 
@@ -108,7 +108,7 @@ pipeline {
 
 
 	stages {
-		stage('container-demp') {
+		stage('container-demo') {
 			steps {
 				container('tools') {
 					sh "yq"
