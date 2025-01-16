@@ -39,12 +39,12 @@ Clone the cloud configuration to address additional Kubernetes clusters and modi
 
 After this, you will have two working cloud configurations.
 
-## Define a Variable in Jenkins System
+## How to disable a cloud
+This is done by changing the name of the cloud. Go to the cloud-settings and add a :disabled to the cloud-name
 
-![Manage Systems Cloud](screenshots/30_manage-systems-cloud.png)
-*manage system*
+like cloud-1 become cloud-1:disabled
 
-You need a way to enable or disable clouds at runtime. The Kubernetes plugin does not provide a native "disable" function, so this feature must be managed manually or through custom configurations. I have created a Jira issue to address this limitation.
+There is a issue for add a disabled-settings in the cloud-settins. We have to wait till this request is merged https://github.com/jenkinsci/kubernetes-plugin/pull/1134
 
 ## Set Up Individual Projects
 
