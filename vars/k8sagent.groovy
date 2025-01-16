@@ -19,7 +19,7 @@ import groovy.json.JsonSlurper
   * <pre>
   * {@code
   *  agent {
-  *    kubernetes(k8sagent())
+  *    kubernetes(k8sagent(project:'tut', agent:'base', inheritFrom:'rocky-9-jdk21', containers:'tools cypress:13.0.0', spec:'mini nodeSelector:ba-worker05' , debug:'true'))
   *  }
   * }
   * </pre>
@@ -136,15 +136,22 @@ def getAgentName(String key) {
   */
 def getActiveClouds() {
     def activeClouds = []
-    def cloudBalance = Jenkins.get().getGlobalNodeProperties()[0].getEnvVars()['KUBERNETES_CLOUD_BALANCING']
-    if (!cloudBalance) throw new Exception("No Jenkins global environment variable KUBERNETES_CLOUD_BALANCING")
-
-    cloudBalance.split(';').each { entry ->
-        def (cloud, status) = entry.trim().split('=')
-        if (status.trim() == 'true') activeClouds << cloud.trim()
+    def allClouds = new StringBuffer()
+    def clouds=Jenkins.get().clouds.getAll(org.csanchez.jenkins.plugins.kubernetes.KubernetesCloud.class)
+      .findAll()
+     
+      clouds.each { 
+        cloud ->   
+        def (name,state) = cloud.name.trim().split(":", 2).collect { it.trim() }
+        allClouds.append("$name is ${state ?: 'active'}, ")
+        if (!state || !state.equals('disabled')) {
+            activeClouds << name
+        }
     }
 
-    println("k8sagent ==> Active clouds from Jenkins-Environment: ${activeClouds.join(', ')}")
+    if (!activeClouds) throw new Exception("k8sagent ==> No active cloud found (no cloud or string disabled found)")
+
+    println("k8sagent ==> Active clouds: ${activeClouds.join(', ')} from all clouds ${allClouds.toString()}")
     return activeClouds
 }
 
@@ -177,7 +184,7 @@ def getCloudForProject(project) {
     }
 
     if (activeClouds) {
-        println("k8sagent ==> using fallback cloud as no project-cloud configured: ${activeClouds[0]}")
+        println("k8sagent ==> using fallback cloud as ${preferredCloud ? 'project setting cloud not in active':'no project setting set'} configured: ${activeClouds[0]}")
         return activeClouds[0]
     }
     // no active cloud
